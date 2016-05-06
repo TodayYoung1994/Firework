@@ -1,15 +1,10 @@
 package cn.jing.core.pool;
 
 import cn.jing.core.connection.PooledConnection;
-import cn.jing.core.connection.PooledConnectionFactory;
+import cn.jing.core.connection.factory.PooledConnectionFactory;
 import cn.jing.exception.PropertyException;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Enumeration;
-import java.util.Locale;
-import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.*;
 
@@ -25,48 +20,44 @@ public class DefaultPool implements Pool {
      */
     private ConcurrentHashMap<String, PooledConnection> busyPool;
 
-    public DefaultPool(Properties properties) throws SQLException {
+    public DefaultPool(Properties properties, PooledConnectionFactory factory) {
         if (properties == null || properties.isEmpty()) {
             throw new PropertyException();
         }
         //init properties
         if (properties.containsKey("coreNum")) {
-            coreNum = (Integer) properties.get("coreNum");
+            coreNum = Integer.parseInt(properties.get("coreNum").toString());
         }
         if (properties.containsKey("maxNum")) {
-            maxNum = (Integer) properties.get("maxNum");
+            maxNum = Integer.parseInt(properties.get("maxNum").toString());
         }
         if (properties.containsKey("maxIdleNum")) {
-            maxIdleNum = (Integer) properties.get("maxIdleNum");
+            maxIdleNum = Integer.parseInt(properties.get("maxIdleNum").toString());
         }
         if (properties.containsKey("maxIdleTime")) {
-            maxIdleTime = (Long) properties.get("maxIdleTime");
+            maxIdleTime = Long.parseLong(properties.get("maxIdleTime").toString());
         }
         if (properties.containsKey("testOnBorrow")) {
-            testOnBorrow = (Boolean) properties.get("testOnBorrow");
+            testOnBorrow = Boolean.parseBoolean(properties.get("testOnBorrow").toString());
         }
         if (properties.containsKey("testOnReturn")) {
-            testOnReturn = (Boolean) properties.get("testOnReturn");
+            testOnReturn = Boolean.parseBoolean(properties.get("testOnReturn").toString());
         }
         if (properties.containsKey("testWhileIdle")) {
-            testWhileIdle = (Boolean) properties.get("testWhileIdle");
+            testWhileIdle = Boolean.parseBoolean(properties.get("testWhileIdle").toString());
         }
         if (properties.containsKey("testSql")) {
-            testSql = (String) properties.get("testSql");
+            testSql = properties.get("testSql").toString();
         }
         currentNum = coreNum;
         //init pool
         freePool = new LinkedBlockingQueue<PooledConnection>(maxNum);
         busyPool = new ConcurrentHashMap<String, PooledConnection>(maxIdleNum);
-
+        this.factory = factory;
         factory.setPool(this);
 
         //fill the free pool
         reset();
-    }
-
-    public void init(PooledConnectionFactory factory) {
-        this.factory = factory;
     }
 
 
@@ -113,21 +104,29 @@ public class DefaultPool implements Pool {
      * 当数据库连接池,初始化时,或者失效时,调用此方法
      * 重新创建所有连接
      */
-    synchronized void reset() throws SQLException {
-        freePool.clear();
-        for (int i = 0; i < currentNum; ++i) {
-            this.freePool.offer(factory.createConnection());
+    synchronized void reset() {
+        try {
+            freePool.clear();
+            for (int i = 0; i < currentNum; ++i) {
+                this.freePool.offer(factory.createConnection());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("error occurs while creating connection");
         }
     }
 
-    public PooledConnection getConnection() throws InterruptedException {
+    public PooledConnection getConnection() {
         return getConnection(100);
     }
 
-    public PooledConnection getConnection(long timeout) throws InterruptedException {
-        PooledConnection connection = freePool.poll(timeout, TimeUnit.MILLISECONDS);
-        busyPool.put(connection.getId(), connection);
-        return connection;
+    public PooledConnection getConnection(long timeout) {
+        try {
+            PooledConnection connection = freePool.poll(timeout, TimeUnit.MILLISECONDS);
+            busyPool.put(connection.getId(), connection);
+            return connection;
+        } catch (InterruptedException e) {
+            throw new RuntimeException("cannot get connection.");
+        }
     }
 
     public void returnConnection(PooledConnection connection) {

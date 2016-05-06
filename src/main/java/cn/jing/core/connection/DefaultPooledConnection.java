@@ -61,6 +61,8 @@ public class DefaultPooledConnection extends PooledConnection implements Connect
         this.connection.setReadOnly(false);
 
         pool.returnConnection(this);
+
+        this.connection = null;
     }
 
     public boolean isClosed() throws SQLException {

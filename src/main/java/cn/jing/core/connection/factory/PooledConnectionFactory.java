@@ -1,5 +1,6 @@
-package cn.jing.core.connection;
+package cn.jing.core.connection.factory;
 
+import cn.jing.core.connection.PooledConnection;
 import cn.jing.core.pool.Pool;
 
 import java.sql.SQLException;

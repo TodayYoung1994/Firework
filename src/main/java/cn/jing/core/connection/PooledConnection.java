@@ -7,7 +7,7 @@ import java.sql.Connection;
 /**
  * Created by dubby on 16/5/6.
  */
-public abstract class PooledConnection {
+public abstract class PooledConnection implements Connection {
     /**
      * 记录借出的时间,用来判断是否回收
      */

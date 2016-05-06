@@ -7,9 +7,9 @@ import cn.jing.core.connection.PooledConnection;
  */
 public interface Pool {
 
-    PooledConnection getConnection() throws InterruptedException;
+    PooledConnection getConnection();
 
-    PooledConnection getConnection(long timeout) throws InterruptedException;
+    PooledConnection getConnection(long timeout);
 
     void returnConnection(PooledConnection connection);
 }

@@ -1,6 +1,7 @@
-package cn.jing.core.connection;
+package cn.jing.core.connection.factory;
 
-import cn.jing.core.pool.Pool;
+import cn.jing.core.connection.DefaultPooledConnection;
+import cn.jing.core.connection.PooledConnection;
 import cn.jing.exception.PropertyException;
 
 import java.sql.Connection;
@@ -20,7 +21,7 @@ public class DefaultPooledConnectionFactory extends PooledConnectionFactory {
     private String url;
 
 
-    public DefaultPooledConnectionFactory(Properties properties) throws ClassNotFoundException {
+    public DefaultPooledConnectionFactory(Properties properties) {
         if (properties.containsKey("user")
                 && properties.containsKey("password")
                 && properties.containsKey("driverName")
@@ -32,7 +33,11 @@ public class DefaultPooledConnectionFactory extends PooledConnectionFactory {
         } else {
             throw new PropertyException();
         }
-        Class.forName(driverName);
+        try {
+            Class.forName(driverName);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("jdbc driver cannot found.");
+        }
     }
 
 
