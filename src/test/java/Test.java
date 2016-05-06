@@ -50,11 +50,6 @@ public class Test {
             e.printStackTrace();
         }
 
-        try {
-            System.out.println(connection.isClosed());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("select * from test");

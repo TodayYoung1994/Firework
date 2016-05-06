@@ -116,7 +116,9 @@ public class DefaultPool implements Pool {
     }
 
     public PooledConnection getConnection() {
-        return getConnection(100);
+        PooledConnection connection = getConnection(100);
+        connection.doBorrow();
+        return connection;
     }
 
     public PooledConnection getConnection(long timeout) {
@@ -131,6 +133,14 @@ public class DefaultPool implements Pool {
 
     public void returnConnection(PooledConnection connection) {
         busyPool.remove(connection.getId());
+        if (!connection.isActive(testSql)) {
+            //重新初始化这个连接
+            try {
+                connection = factory.createConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         freePool.offer(connection);
     }
 }

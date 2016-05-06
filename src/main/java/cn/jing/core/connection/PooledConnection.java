@@ -17,12 +17,14 @@ public abstract class PooledConnection implements Connection {
      * 在回收连接时,也依据这个为标准
      */
     private String id;
-    protected Connection connection;
+    private ThreadLocal<Connection> connection;
     protected Pool pool;
+    protected Connection connectionHolder;
 
     public PooledConnection(String id, Connection connection, Pool pool) {
         this.id = id;
-        this.connection = connection;
+        this.connection = new ThreadLocal<Connection>();
+        this.connectionHolder = connection;
         this.pool = pool;
     }
 
@@ -35,11 +37,15 @@ public abstract class PooledConnection implements Connection {
     }
 
     public Connection getConnection() {
-        return connection;
+        return connection.get();
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    public void doBorrow() {
+        connection.set(connectionHolder);
+    }
+
+    public void doReturn() {
+        connection.set(null);
     }
 
     public Pool getPool() {
@@ -49,4 +55,6 @@ public abstract class PooledConnection implements Connection {
     public void setPool(Pool pool) {
         this.pool = pool;
     }
+
+    abstract public boolean isActive(String testSql);
 }
