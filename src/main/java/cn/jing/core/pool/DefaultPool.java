@@ -2,6 +2,7 @@ package cn.jing.core.pool;
 
 import cn.jing.core.connection.PooledConnection;
 import cn.jing.core.connection.factory.PooledConnectionFactory;
+import cn.jing.exception.NoFreeConnectionException;
 import cn.jing.exception.PropertyException;
 
 import java.sql.SQLException;
@@ -11,14 +12,8 @@ import java.util.concurrent.*;
 /**
  * Created by dubby on 16/5/3.
  */
-public class DefaultPool implements Pool {
+public class DefaultPool extends Pool {
 
-    private PooledConnectionFactory factory;
-    private BlockingQueue<PooledConnection> freePool;
-    /**
-     * 用map是因为要根据id来判断那个需要被回收
-     */
-    private ConcurrentHashMap<String, PooledConnection> busyPool;
 
     public DefaultPool(Properties properties, PooledConnectionFactory factory) {
         if (properties == null || properties.isEmpty()) {
@@ -61,44 +56,6 @@ public class DefaultPool implements Pool {
     }
 
 
-    private int currentNum = 10;
-    /**
-     * 核心连接数
-     */
-    private int coreNum = 10;
-    /**
-     * 最大连接数
-     */
-    private int maxNum = 20;
-    /**
-     * 最大空闲连接数
-     * 当空闲数量超过此值,将会触发连接回收器
-     */
-    private int maxIdleNum = 10;
-    /**
-     * 此属性在连接回收器工作时生效
-     * 空闲时间超过此值得连接将会被销毁
-     * 单位:ms
-     */
-    private long maxIdleTime = 1000;
-
-    /**
-     * 在借出时,测试连接的有效性
-     */
-    private boolean testOnBorrow = false;
-    /**
-     * 在归还时,测试连接的有效性
-     */
-    private boolean testOnReturn = true;
-    /**
-     * 在空闲时,测试连接的有效性
-     */
-    private boolean testWhileIdle = false;
-    /**
-     * 测试有效性时,执行的语句
-     * 建议语句执行代价尽量的小,降低测试给数据库带来的压力
-     */
-    private String testSql = "select 1";
 
     /**
      * 当数据库连接池,初始化时,或者失效时,调用此方法
@@ -115,19 +72,22 @@ public class DefaultPool implements Pool {
         }
     }
 
-    public PooledConnection getConnection() {
+    public PooledConnection getConnection() throws NoFreeConnectionException {
         PooledConnection connection = getConnection(100);
         connection.doBorrow();
         return connection;
     }
 
-    public PooledConnection getConnection(long timeout) {
+    public PooledConnection getConnection(long timeout) throws NoFreeConnectionException {
         try {
             PooledConnection connection = freePool.poll(timeout, TimeUnit.MILLISECONDS);
+            if (connection == null) {
+                throw new NoFreeConnectionException();
+            }
             busyPool.put(connection.getId(), connection);
             return connection;
         } catch (InterruptedException e) {
-            throw new RuntimeException("cannot get connection.");
+            throw new NoFreeConnectionException();
         }
     }
 
@@ -143,4 +103,9 @@ public class DefaultPool implements Pool {
         }
         freePool.offer(connection);
     }
+
+
+
+
+
 }

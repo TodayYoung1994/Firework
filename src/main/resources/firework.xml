@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <firwork>
     <module>
+        <moduleName>a</moduleName>
+        <user>root</user>
+        <password>nington</password>
+        <driverName>com.mysql.jdbc.Driver</driverName>
+        <url>jdbc:mysql://127.0.0.1/test</url>
 
-            <moduleName></moduleName>
-            <url></url>
-            <driverName></driverName>
-            <username></username>
-            <password></password>
+        <jxm>true</jxm>
+    </module>
 
+    <module>
+        <moduleName>b</moduleName>
+        <user>root</user>
+        <password>nington</password>
+        <driverName>com.mysql.jdbc.Driver</driverName>
+        <url>jdbc:mysql://127.0.0.1/test</url>
 
+        <jxm>true</jxm>
+    </module>
+
+    <module>
+        <moduleName>c</moduleName>
+        <user>root</user>
+        <password>nington</password>
+        <driverName>com.mysql.jdbc.Driver</driverName>
+        <url>jdbc:mysql://127.0.0.1/test</url>
+
+        <jxm>true</jxm>
     </module>
 </firwork>
