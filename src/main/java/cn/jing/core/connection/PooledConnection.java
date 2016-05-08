@@ -28,6 +28,15 @@ public abstract class PooledConnection implements Connection {
         this.pool = pool;
     }
 
+
+    public long getBorrowTime() {
+        return borrowTime;
+    }
+
+    public void setBorrowTime(long borrowTime) {
+        this.borrowTime = borrowTime;
+    }
+
     public String getId() {
         return id;
     }

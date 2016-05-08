@@ -5,6 +5,7 @@ import cn.jing.core.connection.factory.PooledConnectionFactory;
 import cn.jing.exception.NoFreeConnectionException;
 import cn.jing.exception.PropertyException;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.concurrent.*;
@@ -14,6 +15,7 @@ import java.util.concurrent.*;
  */
 public class DefaultPool extends Pool {
 
+    private ConnectionGC connectionGC;
 
     public DefaultPool(Properties properties, PooledConnectionFactory factory) {
         if (properties == null || properties.isEmpty()) {
@@ -53,8 +55,11 @@ public class DefaultPool extends Pool {
 
         //fill the free pool
         reset();
-    }
 
+        //init gc thread
+        connectionGC = new ConnectionGC();
+        connectionGC.start();
+    }
 
 
     /**
@@ -73,7 +78,7 @@ public class DefaultPool extends Pool {
     }
 
     public PooledConnection getConnection() throws NoFreeConnectionException {
-        PooledConnection connection = getConnection(100);
+        PooledConnection connection = getConnection(1000 * 60);
         connection.doBorrow();
         return connection;
     }
@@ -84,6 +89,17 @@ public class DefaultPool extends Pool {
             if (connection == null) {
                 throw new NoFreeConnectionException();
             }
+
+            //测试连接的有效性
+            if (testOnBorrow && !connection.isActive(testSql)) {
+                //重新初始化这个连接
+                try {
+                    connection = factory.createConnection();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
             busyPool.put(connection.getId(), connection);
             return connection;
         } catch (InterruptedException e) {
@@ -93,7 +109,9 @@ public class DefaultPool extends Pool {
 
     public void returnConnection(PooledConnection connection) {
         busyPool.remove(connection.getId());
-        if (!connection.isActive(testSql)) {
+
+        //测试连接的有效性
+        if (testOnReturn && !connection.isActive(testSql)) {
             //重新初始化这个连接
             try {
                 connection = factory.createConnection();
@@ -101,11 +119,66 @@ public class DefaultPool extends Pool {
                 e.printStackTrace();
             }
         }
+
         freePool.offer(connection);
+
+        //判断是否满足maxIdleNum的要求,如果满足了,就开启连接回收线程
+        int idleNum = freePool.size();
+        if (idleNum >= maxIdleNum) {
+            connectionGC.startGC();
+        }
+
     }
 
 
+    class ConnectionGC extends Thread {
 
+        int i = 0;
 
+        private boolean isStop = true;
 
+        public void stopGC() {
+            isStop = true;
+        }
+
+        public void startGC() {
+            isStop = false;
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                if (!isStop) {
+                    if (freePool.size() < maxIdleNum) {
+                        isStop = true;
+                    } else {
+                        for (PooledConnection c : freePool) {
+                            long currentTime = System.currentTimeMillis();
+                            if (currentTime - c.getBorrowTime() > maxIdleTime) {
+
+                                freePool.poll();
+
+                                System.out.println("回收一条连接" + i);
+                                System.out.println("freePool.size() " + freePool.size());
+                                System.out.println("maxIdleNum " + maxIdleNum);
+                                i++;
+
+                                if (freePool.size() < maxIdleNum) {
+                                    isStop = true;
+                                    break;
+                                }
+
+                            }
+                        }
+                    }
+                } else {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 }

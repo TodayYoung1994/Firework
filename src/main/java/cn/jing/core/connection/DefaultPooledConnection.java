@@ -64,7 +64,10 @@ public class DefaultPooledConnection extends PooledConnection implements Connect
     }
 
     public boolean isClosed() throws SQLException {
-        return getConnection().isClosed();
+        Connection c = getConnection();
+        if (c == null || c.isClosed())
+            return true;
+        return false;
     }
 
     public DatabaseMetaData getMetaData() throws SQLException {
