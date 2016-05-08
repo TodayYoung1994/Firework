@@ -11,7 +11,7 @@
         <maxNum>50</maxNum>
         <maxIdleNum>10</maxIdleNum>
 
-        <jxm>true</jxm>
+        <jmx>true</jmx>
     </module>
 
     <module>
@@ -25,7 +25,7 @@
         <maxNum>20</maxNum>
         <maxIdleNum>30</maxIdleNum>
 
-        <jxm>true</jxm>
+        <jmx>true</jmx>
     </module>
 
     <module>
@@ -39,6 +39,6 @@
         <maxNum>200</maxNum>
         <maxIdleNum>300</maxIdleNum>
 
-        <jxm>true</jxm>
+        <jmx>true</jmx>
     </module>
 </firwork>

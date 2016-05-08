@@ -1,11 +1,9 @@
-package cn.jing.core.pool.jxm;
-
-import javax.management.DynamicMBean;
+package cn.jing.core.pool.jmx;
 
 /**
  * Created by dubby on 16/5/7.
  */
-public interface JXMPoolMBean {
+public interface JMXPoolMBean {
     /**
      * 空闲状态的连接
      *

@@ -1,17 +1,17 @@
-package cn.jing.core.pool.jxm;
+package cn.jing.core.pool.jmx;
 
 import cn.jing.core.pool.Pool;
 
 /**
  * Created by dubby on 16/5/3.
  */
-public class JXMPool implements JXMPoolMBean {
+public class JMXPool implements JMXPoolMBean {
 
     private Pool pool;
 
-    public JXMPool(){}
+    public JMXPool(){}
 
-    public JXMPool(Pool pool) {
+    public JMXPool(Pool pool) {
         this.pool = pool;
     }
 

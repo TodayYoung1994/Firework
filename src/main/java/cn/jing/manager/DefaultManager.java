@@ -3,13 +3,13 @@ package cn.jing.manager;
 import cn.jing.core.connection.factory.DefaultPooledConnectionFactory;
 import cn.jing.core.connection.factory.PooledConnectionFactory;
 import cn.jing.core.pool.DefaultPool;
-import cn.jing.core.pool.jxm.JXMPool;
+import cn.jing.core.pool.jmx.JMXPool;
+import cn.jing.core.pool.jmx.JMXPoolMBean;
 import cn.jing.core.pool.Pool;
 import cn.jing.exception.ModuleNotFoundException;
 import cn.jing.exception.NoFreeConnectionException;
-import cn.jing.jmx.DefaultJXMServer;
-import cn.jing.core.pool.jxm.JXMPoolMBean;
-import cn.jing.jmx.JXMServer;
+import cn.jing.jmx.DefaultJMXServer;
+import cn.jing.jmx.JMXServer;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -33,8 +33,8 @@ public class DefaultManager implements Manager {
     private Pool defaultPool;
     private LinkedHashMap<String, Pool> poolMap;
 
-    private Map<String, JXMPoolMBean> poolMBeanMap;
-    private JXMServer jxmServer;
+    private Map<String, JMXPoolMBean> poolMBeanMap;
+    private JMXServer jxmServer;
     private boolean JXMEnable = false;
 
     public DefaultManager() throws DocumentException {
@@ -59,7 +59,7 @@ public class DefaultManager implements Manager {
             propertiesList.add(p);
         }
         //根据Properties生成Factory和Pool
-        poolMBeanMap = new HashMap<String, JXMPoolMBean>();
+        poolMBeanMap = new HashMap<String, JMXPoolMBean>();
         poolMap = new LinkedHashMap<String, Pool>();
         PooledConnectionFactory factory = null;
         boolean defaultInited = false;
@@ -67,10 +67,10 @@ public class DefaultManager implements Manager {
             if (!defaultInited) {
                 factory = new DefaultPooledConnectionFactory(p);
 
-                if (p.containsKey("jxm") && Boolean.parseBoolean(p.get("jxm").toString())) {
+                if (p.containsKey("jmx") && Boolean.parseBoolean(p.get("jmx").toString())) {
                     JXMEnable = true;
                     defaultPool = new DefaultPool(p, factory);
-                    poolMBeanMap.put(p.get("moduleName").toString(), new JXMPool(defaultPool));
+                    poolMBeanMap.put(p.get("moduleName").toString(), new JMXPool(defaultPool));
                 } else {
                     defaultPool = new DefaultPool(p, factory);
                 }
@@ -81,10 +81,10 @@ public class DefaultManager implements Manager {
                 factory = new DefaultPooledConnectionFactory(p);
                 Pool pool = null;
 
-                if (p.containsKey("jxm") && Boolean.parseBoolean(p.get("jxm").toString())) {
+                if (p.containsKey("jmx") && Boolean.parseBoolean(p.get("jmx").toString())) {
                     JXMEnable = true;
                     pool = new DefaultPool(p, factory);
-                    poolMBeanMap.put(p.get("moduleName").toString(), new JXMPool(pool));
+                    poolMBeanMap.put(p.get("moduleName").toString(), new JMXPool(pool));
                 } else {
                     pool = new DefaultPool(p, factory);
                 }
@@ -94,7 +94,7 @@ public class DefaultManager implements Manager {
         }
         //如果存在一个pool开启了JXM,那么开启JXM服务
         if (JXMEnable) {
-            jxmServer = new DefaultJXMServer();
+            jxmServer = new DefaultJMXServer();
             try {
                 jxmServer.expose(poolMBeanMap);
             } catch (MalformedObjectNameException e) {
