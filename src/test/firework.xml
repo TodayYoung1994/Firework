@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<firwork>
+    <module>
+        <moduleName>a</moduleName>
+        <user>root</user>
+        <password>nington</password>
+        <driverName>com.mysql.jdbc.Driver</driverName>
+        <url>jdbc:mysql://127.0.0.1/test</url>
+
+        <coreNum>40</coreNum>
+        <maxNum>50</maxNum>
+        <maxIdleNum>10</maxIdleNum>
+
+        <testOnBorrow>true</testOnBorrow>
+        <testOnReturn>true</testOnReturn>
+
+        <!-- 开启jmx -->
+        <jmx>true</jmx>
+    </module>
+
+    <module>
+        <moduleName>b</moduleName>
+        <user>root</user>
+        <password>nington</password>
+        <driverName>com.mysql.jdbc.Driver</driverName>
+        <url>jdbc:mysql://127.0.0.1/test</url>
+
+        <coreNum>10</coreNum>
+        <maxNum>20</maxNum>
+        <maxIdleNum>30</maxIdleNum>
+
+        <jmx>true</jmx>
+    </module>
+
+    <module>
+        <moduleName>c</moduleName>
+        <user>root</user>
+        <password>nington</password>
+        <driverName>com.mysql.jdbc.Driver</driverName>
+        <url>jdbc:mysql://127.0.0.1/test</url>
+
+        <coreNum>100</coreNum>
+        <maxNum>200</maxNum>
+        <maxIdleNum>300</maxIdleNum>
+
+        <testOnBorrow>true</testOnBorrow>
+        <testOnReturn>true</testOnReturn>
+
+        <jmx>true</jmx>
+    </module>
+</firwork>

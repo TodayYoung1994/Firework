@@ -2,6 +2,8 @@ package cn.jing.jmx;
 
 import cn.jing.core.pool.jmx.JMXPoolMBean;
 import com.sun.jdmk.comm.HtmlAdaptorServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.management.*;
 import java.util.Map;
@@ -10,6 +12,8 @@ import java.util.Map;
  * Created by dubby on 16/5/7.
  */
 public class DefaultJMXServer implements JMXServer {
+
+    private Logger logger = LoggerFactory.getLogger(DefaultJMXServer.class);
 
     public void expose(Map<String, JMXPoolMBean> poolMBeanMap) throws MalformedObjectNameException, NotCompliantMBeanException, InstanceAlreadyExistsException, MBeanRegistrationException {
         MBeanServer server = MBeanServerFactory.createMBeanServer();
@@ -24,6 +28,7 @@ public class DefaultJMXServer implements JMXServer {
         server.registerMBean(adaptorServer, adapterName);
 
         adaptorServer.start();
-        System.out.println("jxm server starting ...");
+        logger.debug("jmx server starting ...");
+        logger.debug("you can open http://localhost:8082 with browser");
     }
 }

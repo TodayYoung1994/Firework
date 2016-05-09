@@ -4,10 +4,13 @@ import cn.jing.core.connection.PooledConnection;
 import cn.jing.core.connection.factory.PooledConnectionFactory;
 import cn.jing.exception.NoFreeConnectionException;
 import cn.jing.exception.PropertyException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.concurrent.*;
 
 /**
@@ -15,6 +18,9 @@ import java.util.concurrent.*;
  */
 public class DefaultPool extends Pool {
 
+    private Logger logger = LoggerFactory.getLogger(DefaultPool.class);
+
+    private String poolId = UUID.randomUUID().toString();
     private ConnectionGC connectionGC;
 
     public DefaultPool(Properties properties, PooledConnectionFactory factory) {
@@ -40,9 +46,7 @@ public class DefaultPool extends Pool {
         if (properties.containsKey("testOnReturn")) {
             testOnReturn = Boolean.parseBoolean(properties.get("testOnReturn").toString());
         }
-        if (properties.containsKey("testWhileIdle")) {
-            testWhileIdle = Boolean.parseBoolean(properties.get("testWhileIdle").toString());
-        }
+
         if (properties.containsKey("testSql")) {
             testSql = properties.get("testSql").toString();
         }
@@ -66,7 +70,8 @@ public class DefaultPool extends Pool {
      * 当数据库连接池,初始化时,或者失效时,调用此方法
      * 重新创建所有连接
      */
-    synchronized void reset() {
+    private synchronized void reset() {
+        logger.debug("reset pool " + poolId);
         try {
             freePool.clear();
             for (int i = 0; i < currentNum; ++i) {
@@ -101,6 +106,7 @@ public class DefaultPool extends Pool {
             }
 
             busyPool.put(connection.getId(), connection);
+            logger.debug("borrow a connection " + connection == null ? "null" : connection.getId() + " from pool " + poolId);
             return connection;
         } catch (InterruptedException e) {
             throw new NoFreeConnectionException();
@@ -127,13 +133,11 @@ public class DefaultPool extends Pool {
         if (idleNum >= maxIdleNum) {
             connectionGC.startGC();
         }
-
+        logger.debug("return a connection " + connection == null ? "null" : connection.getId() + " to pool " + poolId);
     }
 
 
     class ConnectionGC extends Thread {
-
-        int i = 0;
 
         private boolean isStop = true;
 
@@ -156,12 +160,11 @@ public class DefaultPool extends Pool {
                             long currentTime = System.currentTimeMillis();
                             if (currentTime - c.getBorrowTime() > maxIdleTime) {
 
-                                freePool.poll();
+                                PooledConnection conn = freePool.poll();
 
-                                System.out.println("回收一条连接" + i);
-                                System.out.println("freePool.size() " + freePool.size());
-                                System.out.println("maxIdleNum " + maxIdleNum);
-                                i++;
+
+                                logger.debug("ConnectionGC thread destroy a connection " + conn.getId() + " from pool " + poolId);
+                                logger.debug("freePool.size = " + freePool.size() + " in pool " + poolId);
 
                                 if (freePool.size() < maxIdleNum) {
                                     isStop = true;

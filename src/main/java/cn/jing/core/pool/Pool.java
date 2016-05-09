@@ -49,10 +49,7 @@ public abstract class Pool {
      * 在归还时,测试连接的有效性
      */
     protected boolean testOnReturn = true;
-    /**
-     * 在空闲时,测试连接的有效性
-     */
-    protected boolean testWhileIdle = false;
+
     /**
      * 测试有效性时,执行的语句
      * 建议语句执行代价尽量的小,降低测试给数据库带来的压力
@@ -135,14 +132,6 @@ public abstract class Pool {
 
     public void setTestOnReturn(boolean testOnReturn) {
         this.testOnReturn = testOnReturn;
-    }
-
-    public boolean isTestWhileIdle() {
-        return testWhileIdle;
-    }
-
-    public void setTestWhileIdle(boolean testWhileIdle) {
-        this.testWhileIdle = testWhileIdle;
     }
 
     public String getTestSql() {
