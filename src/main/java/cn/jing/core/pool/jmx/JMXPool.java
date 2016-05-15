@@ -9,7 +9,8 @@ public class JMXPool implements JMXPoolMBean {
 
     private Pool pool;
 
-    public JMXPool(){}
+    public JMXPool() {
+    }
 
     public JMXPool(Pool pool) {
         this.pool = pool;
@@ -53,5 +54,13 @@ public class JMXPool implements JMXPoolMBean {
 
     public void setMaxIdleTime(long maxIdleTime) {
         pool.setMaxIdleTime(maxIdleTime);
+    }
+
+    public int getMinIdleNum() {
+        return pool.getMinIdleNum();
+    }
+
+    public void setMinIdleNum(int minIdleNum) {
+        pool.setMinIdleNum(minIdleNum);
     }
 }

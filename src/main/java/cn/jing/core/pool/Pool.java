@@ -34,6 +34,8 @@ public abstract class Pool {
      * 当空闲数量超过此值,将会触发连接回收器
      */
     protected int maxIdleNum = 10;
+
+    protected int minIdleNum = 10;
     /**
      * 此属性在连接回收器工作时生效
      * 空闲时间超过此值得连接将会被销毁
@@ -140,5 +142,13 @@ public abstract class Pool {
 
     public void setTestSql(String testSql) {
         this.testSql = testSql;
+    }
+
+    public int getMinIdleNum() {
+        return minIdleNum;
+    }
+
+    public void setMinIdleNum(int minIdleNum) {
+        this.minIdleNum = minIdleNum;
     }
 }

@@ -22,6 +22,7 @@ public class DefaultPool extends Pool {
 
     private String poolId = UUID.randomUUID().toString();
     private ConnectionGC connectionGC;
+    private ConnectionGenerator connectionGenerator;
 
     public DefaultPool(Properties properties, PooledConnectionFactory factory) {
         if (properties == null || properties.isEmpty()) {
@@ -50,6 +51,9 @@ public class DefaultPool extends Pool {
         if (properties.containsKey("testSql")) {
             testSql = properties.get("testSql").toString();
         }
+        if (properties.containsKey("minIdleNum")) {
+            minIdleNum = Integer.parseInt(properties.get("minIdleNum").toString());
+        }
         currentNum = coreNum;
         //init pool
         freePool = new LinkedBlockingQueue<PooledConnection>(maxNum);
@@ -63,6 +67,10 @@ public class DefaultPool extends Pool {
         //init gc thread
         connectionGC = new ConnectionGC();
         connectionGC.start();
+        connectionGC.startGC();
+        connectionGenerator = new ConnectionGenerator();
+        connectionGenerator.start();
+        connectionGenerator.startGenerate();
     }
 
 
@@ -107,6 +115,10 @@ public class DefaultPool extends Pool {
 
             busyPool.put(connection.getId(), connection);
             logger.debug("borrow a connection " + connection == null ? "null" : connection.getId() + " from pool " + poolId);
+
+            //判断当前空闲连接是否 < 最小连接数
+            connectionGenerator.startGenerate();
+
             return connection;
         } catch (InterruptedException e) {
             throw new NoFreeConnectionException();
@@ -137,6 +149,7 @@ public class DefaultPool extends Pool {
     }
 
 
+    //回收连接的线程
     class ConnectionGC extends Thread {
 
         private boolean isStop = true;
@@ -153,7 +166,7 @@ public class DefaultPool extends Pool {
         public void run() {
             while (true) {
                 if (!isStop) {
-                    if (freePool.size() < maxIdleNum) {
+                    if (freePool.size() <= maxIdleNum) {
                         isStop = true;
                     } else {
                         for (PooledConnection c : freePool) {
@@ -166,11 +179,58 @@ public class DefaultPool extends Pool {
                                 logger.debug("ConnectionGC thread destroy a connection " + conn.getId() + " from pool " + poolId);
                                 logger.debug("freePool.size = " + freePool.size() + " in pool " + poolId);
 
-                                if (freePool.size() < maxIdleNum) {
+                                if (freePool.size() <= maxIdleNum) {
                                     isStop = true;
                                     break;
                                 }
 
+                            }
+                        }
+                    }
+                } else {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    //当连接不足时,创建连接的线程
+    class ConnectionGenerator extends Thread {
+
+        private boolean isStop = true;
+
+        public void startGenerate() {
+            isStop = false;
+        }
+
+        public void stopGenerate() {
+            isStop = true;
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                if (!isStop) {
+                    if (freePool.size() >= minIdleNum) {
+                        isStop = true;
+                    } else {
+                        while (true) {
+                            try {
+                                PooledConnection newConnection = factory.createConnection();
+                                freePool.offer(newConnection);
+                                logger.debug("ConnectionGenerator thread create a connection " + newConnection.getId() + " add to pool " + poolId);
+                                logger.debug("freePool.size = " + freePool.size() + " in pool " + poolId);
+
+                                if (freePool.size() >= minIdleNum) {
+                                    isStop = true;
+                                    break;
+                                }
+                            } catch (SQLException e) {
+                                e.printStackTrace();
                             }
                         }
                     }

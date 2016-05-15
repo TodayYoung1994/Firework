@@ -7,9 +7,10 @@
         <driverName>com.mysql.jdbc.Driver</driverName>
         <url>jdbc:mysql://127.0.0.1/test</url>
 
-        <coreNum>40</coreNum>
-        <maxNum>50</maxNum>
-        <maxIdleNum>10</maxIdleNum>
+        <coreNum>50</coreNum>
+        <maxNum>100</maxNum>
+        <minIdleNum>10</minIdleNum>
+        <maxIdleNum>20</maxIdleNum>
 
         <testOnBorrow>true</testOnBorrow>
         <testOnReturn>true</testOnReturn>
@@ -18,34 +19,36 @@
         <jmx>true</jmx>
     </module>
 
-    <module>
-        <moduleName>b</moduleName>
-        <user>root</user>
-        <password>nington</password>
-        <driverName>com.mysql.jdbc.Driver</driverName>
-        <url>jdbc:mysql://127.0.0.1/test</url>
+    <!--<module>-->
+        <!--<moduleName>b</moduleName>-->
+        <!--<user>root</user>-->
+        <!--<password>nington</password>-->
+        <!--<driverName>com.mysql.jdbc.Driver</driverName>-->
+        <!--<url>jdbc:mysql://127.0.0.1/test</url>-->
 
-        <coreNum>10</coreNum>
-        <maxNum>20</maxNum>
-        <maxIdleNum>30</maxIdleNum>
+        <!--<coreNum>10</coreNum>-->
+        <!--<maxNum>20</maxNum>-->
+        <!--<minIdleNum>10</minIdleNum>-->
+        <!--<maxIdleNum>30</maxIdleNum>-->
 
-        <jmx>true</jmx>
-    </module>
+        <!--<jmx>true</jmx>-->
+    <!--</module>-->
 
-    <module>
-        <moduleName>c</moduleName>
-        <user>root</user>
-        <password>nington</password>
-        <driverName>com.mysql.jdbc.Driver</driverName>
-        <url>jdbc:mysql://127.0.0.1/test</url>
+    <!--<module>-->
+        <!--<moduleName>c</moduleName>-->
+        <!--<user>root</user>-->
+        <!--<password>nington</password>-->
+        <!--<driverName>com.mysql.jdbc.Driver</driverName>-->
+        <!--<url>jdbc:mysql://127.0.0.1/test</url>-->
 
-        <coreNum>100</coreNum>
-        <maxNum>200</maxNum>
-        <maxIdleNum>300</maxIdleNum>
+        <!--<coreNum>100</coreNum>-->
+        <!--<maxNum>200</maxNum>-->
+        <!--<minIdleNum>10</minIdleNum>-->
+        <!--<maxIdleNum>300</maxIdleNum>-->
 
-        <testOnBorrow>true</testOnBorrow>
-        <testOnReturn>true</testOnReturn>
+        <!--<testOnBorrow>true</testOnBorrow>-->
+        <!--<testOnReturn>true</testOnReturn>-->
 
-        <jmx>true</jmx>
-    </module>
+        <!--<jmx>true</jmx>-->
+    <!--</module>-->
 </firwork>
