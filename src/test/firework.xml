@@ -19,20 +19,20 @@
         <jmx>true</jmx>
     </module>
 
-    <!--<module>-->
-        <!--<moduleName>b</moduleName>-->
-        <!--<user>root</user>-->
-        <!--<password>nington</password>-->
-        <!--<driverName>com.mysql.jdbc.Driver</driverName>-->
-        <!--<url>jdbc:mysql://127.0.0.1/test</url>-->
+    <module>
+        <moduleName>b</moduleName>
+        <user>root</user>
+        <password>nington</password>
+        <driverName>com.mysql.jdbc.Driver</driverName>
+        <url>jdbc:mysql://127.0.0.1/test</url>
 
-        <!--<coreNum>10</coreNum>-->
-        <!--<maxNum>20</maxNum>-->
-        <!--<minIdleNum>10</minIdleNum>-->
-        <!--<maxIdleNum>30</maxIdleNum>-->
+        <coreNum>10</coreNum>
+        <maxNum>20</maxNum>
+        <minIdleNum>10</minIdleNum>
+        <maxIdleNum>30</maxIdleNum>
 
-        <!--<jmx>true</jmx>-->
-    <!--</module>-->
+        <jmx>true</jmx>
+    </module>
 
     <!--<module>-->
         <!--<moduleName>c</moduleName>-->
