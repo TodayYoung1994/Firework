@@ -2,6 +2,7 @@ package cn.jing.core.pool;
 
 import cn.jing.core.connection.PooledConnection;
 import cn.jing.core.connection.factory.PooledConnectionFactory;
+import cn.jing.exception.MaxConnectionException;
 import cn.jing.exception.NoFreeConnectionException;
 import cn.jing.exception.PropertyException;
 import org.slf4j.Logger;
@@ -90,14 +91,17 @@ public class DefaultPool extends Pool {
         }
     }
 
-    public PooledConnection getConnection() throws NoFreeConnectionException {
+    public PooledConnection getConnection() throws NoFreeConnectionException, MaxConnectionException {
         PooledConnection connection = getConnection(1000 * 60);
         connection.doBorrow();
         return connection;
     }
 
-    public PooledConnection getConnection(long timeout) throws NoFreeConnectionException {
+    public PooledConnection getConnection(long timeout) throws NoFreeConnectionException, MaxConnectionException {
         try {
+            if (freePool.size() + busyPool.size() >= maxNum) {
+                throw new MaxConnectionException();
+            }
             PooledConnection connection = freePool.poll(timeout, TimeUnit.MILLISECONDS);
             if (connection == null) {
                 throw new NoFreeConnectionException();

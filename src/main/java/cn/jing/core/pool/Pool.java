@@ -2,6 +2,7 @@ package cn.jing.core.pool;
 
 import cn.jing.core.connection.PooledConnection;
 import cn.jing.core.connection.factory.PooledConnectionFactory;
+import cn.jing.exception.MaxConnectionException;
 import cn.jing.exception.NoFreeConnectionException;
 
 import java.util.concurrent.BlockingQueue;
@@ -58,9 +59,9 @@ public abstract class Pool {
      */
     protected String testSql = "select 1";
 
-    abstract public PooledConnection getConnection() throws NoFreeConnectionException;
+    abstract public PooledConnection getConnection() throws NoFreeConnectionException, MaxConnectionException;
 
-    abstract public PooledConnection getConnection(long timeout) throws NoFreeConnectionException;
+    abstract public PooledConnection getConnection(long timeout) throws NoFreeConnectionException, MaxConnectionException;
 
     abstract public void returnConnection(PooledConnection connection);
 

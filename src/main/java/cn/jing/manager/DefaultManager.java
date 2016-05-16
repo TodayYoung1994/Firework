@@ -6,6 +6,7 @@ import cn.jing.core.pool.DefaultPool;
 import cn.jing.core.pool.jmx.JMXPool;
 import cn.jing.core.pool.jmx.JMXPoolMBean;
 import cn.jing.core.pool.Pool;
+import cn.jing.exception.MaxConnectionException;
 import cn.jing.exception.ModuleNotFoundException;
 import cn.jing.exception.NoFreeConnectionException;
 import cn.jing.jmx.DefaultJMXServer;
@@ -117,22 +118,22 @@ public class DefaultManager implements Manager {
         this.propertiesList = propertiesList;
     }
 
-    public Connection getConnection() throws NoFreeConnectionException {
+    public Connection getConnection() throws NoFreeConnectionException, MaxConnectionException {
         return defaultPool.getConnection();
     }
 
-    public Connection getConnection(long timeout) throws NoFreeConnectionException {
+    public Connection getConnection(long timeout) throws NoFreeConnectionException, MaxConnectionException {
         return defaultPool.getConnection(timeout);
     }
 
-    public Connection getConnection(String moduleName) throws ModuleNotFoundException, NoFreeConnectionException {
+    public Connection getConnection(String moduleName) throws ModuleNotFoundException, NoFreeConnectionException, MaxConnectionException {
         if (!poolMap.containsKey(moduleName)) {
             throw new ModuleNotFoundException();
         }
         return poolMap.get(moduleName).getConnection();
     }
 
-    public Connection getConnection(String moduleName, long timeout) throws ModuleNotFoundException, NoFreeConnectionException {
+    public Connection getConnection(String moduleName, long timeout) throws ModuleNotFoundException, NoFreeConnectionException, MaxConnectionException {
         if (!poolMap.containsKey(moduleName)) {
             throw new ModuleNotFoundException();
         }

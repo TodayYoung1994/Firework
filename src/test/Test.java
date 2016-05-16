@@ -1,3 +1,4 @@
+import cn.jing.exception.MaxConnectionException;
 import cn.jing.exception.ModuleNotFoundException;
 import cn.jing.exception.NoFreeConnectionException;
 import cn.jing.manager.DefaultManager;
@@ -16,7 +17,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class Test {
     @org.junit.Test
-    public void test() throws DocumentException, NoFreeConnectionException, SQLException, InterruptedException {
+    public void testGcAndGenerate() throws DocumentException, NoFreeConnectionException, SQLException, InterruptedException, MaxConnectionException {
         DefaultManager manager = new DefaultManager();
         List<Properties> list = manager.getPropertiesList();
         for (Properties p : list) {
@@ -41,12 +42,13 @@ public class Test {
         Connection a9 = manager.getConnection();
 
         //这个latch是为了阻止程序结束,这样就可以打开 http://localhost:8082/ 查看jmx
+        //因为一旦程序结束,数据库连接池就会被销毁,jmx server也会关闭
         CountDownLatch latch = new CountDownLatch(1);
         latch.await();
     }
 
     @org.junit.Test
-    public void testConnection() throws DocumentException, NoFreeConnectionException, ModuleNotFoundException, SQLException, InterruptedException {
+    public void testConnection() throws DocumentException, NoFreeConnectionException, ModuleNotFoundException, SQLException, InterruptedException, MaxConnectionException {
         DefaultManager manager = new DefaultManager();
         //测试    module a
         Connection a1 = manager.getConnection();
@@ -65,9 +67,12 @@ public class Test {
             System.out.println(rs2.getString("value"));
         }
 
-        //
+        Thread.sleep(1000);
+        a1.close();
+        b1.close();
+
+        //这个latch是为了阻止程序结束,这样就可以打开 http://localhost:8082/ 查看jmx
         CountDownLatch latch = new CountDownLatch(1);
         latch.await();
-
     }
 }
