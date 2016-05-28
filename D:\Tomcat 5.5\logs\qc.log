@@ -1,0 +1,124 @@
+reset pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 79ad6cc8-c870-4ad7-a78e-811fe1b7f48d from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 49 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 45e8b03a-cd08-45df-8e72-2c536237f66a from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 48 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 4267b228-5174-4616-baf3-1c39ae533c7c from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 47 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 6f71d665-d762-4086-9b55-076d6530fe78 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 46 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection afcf73e6-884b-46d5-bca3-70a27af4c5ad from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 45 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+reset pool 16a8e6ad-b370-4bfc-89cc-b8250bb394bc
+ConnectionGC thread destroy a connection 236dedc1-8fe5-4e67-9d07-81a3a5690d9f from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 44 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 30544251-19ef-440c-8f0a-d4555870a184 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 43 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection d561328c-27f7-47e6-9bd5-31abf07e53d9 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 42 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 4b234279-7785-4371-b34a-872a7d44b74a from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 41 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 7a6ced27-80a2-4006-9b2e-d4f61f750f57 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 40 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection dbb4f17d-c24e-4457-9e04-fb54c03afe29 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 39 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection f65b2f9e-3f31-4e62-96d9-eb76941e1fea from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 38 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection cdbcda6b-ba73-4b8d-9f33-474d5cae89dd from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 37 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 9c74a01e-0552-4695-aa7d-997fdfc90e20 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 36 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 9f8181fe-96fa-46a5-a0d2-7f13d312037f from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 35 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection a8e414bb-c21b-4154-9fbf-7137f3647464 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 34 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 43305016-f39e-4dc0-a707-e1232e853a12 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 33 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection edd64464-c69e-406a-b523-99ff1e4d4aa6 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 32 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 59362abd-b554-48c9-9f0a-ef528030e6c0 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 31 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection c001d309-5883-4219-a24b-16dd1d2f31b5 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 30 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 65fa0233-c6a9-4590-9d14-ddbaa1206374 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 29 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 00fe4d9d-6c98-40fe-bd92-1e383b60e682 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 28 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 71ed7291-4b8f-4b01-8caa-130428d8d92e from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 27 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 8c6728a4-9b13-4e0f-9185-7aa45e6509bb from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 26 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 36b2489e-9564-4208-be2b-aa494eec2c8a from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 25 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 6fb4589b-6f15-48d2-be64-bc93ac30ba8d from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 24 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection e439cb80-d4a7-459d-9324-5af9f8fb0e07 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 23 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection dab50fec-b833-422c-9951-2c34d2e52614 from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 22 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 2dfe8566-5729-4b25-8f25-8465e7feea7a from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 21 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+ConnectionGC thread destroy a connection 6bfef18e-45ec-482c-abce-65f7b2d8221d from pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+freePool.size = 20 in pool 3f3f3be9-c609-46cb-a99a-f4d9f13fa0bf
+reset pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection f452643e-b52a-491c-b75a-298618f4f13b from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 49 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+reset pool cf64f2e6-2557-417f-8316-88c2c46d3b9b
+ConnectionGC thread destroy a connection 9ed5d151-6129-4368-a8cd-72010eb09e9e from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 48 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection f673629e-9f28-49fb-8361-475ebff371ff from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 47 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 70e5bfdb-2fe8-4e06-91a8-670f216adf13 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 46 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 35203eab-08ce-4b64-b0e9-38ec1f25c8df from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 45 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 3396534a-ac97-4985-bc05-e0540f23eec6 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 44 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 2e353e29-3d94-4829-9b8c-db41e30f5e09 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 43 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 7471b406-61f9-4117-9090-0dd45f61e0d2 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 42 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 74476a8b-311e-4568-b347-eff6a5f52e4c from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 41 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 2c460b84-c2a9-4b62-a3c1-4b8c97727ec6 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 40 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection a029cc1c-e8be-4aba-936c-69024287350b from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 39 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 2d50621b-efbd-4cd6-b4ad-e9ef3eea2a4c from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 38 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 8a698189-f152-43cf-a82c-d537e11be1ec from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 37 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection d59665c9-5590-4d10-bb91-82b9437ed076 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 36 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection c872c9a7-3c0d-4a27-a8c7-687b29c333cc from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 35 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 7e752a39-9bb2-4902-ab3e-0b3d96d21665 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 34 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 0ab58bf0-7def-48dd-9bc5-6bbc9a22ff48 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 33 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection ce37e92c-de8e-45e1-a699-8ebf9fac7f62 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 32 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 530ce4ed-3d6f-4609-8bc2-ea7a0894c023 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 31 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 553f1513-a42c-4bab-b7c9-36434a256be1 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 30 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection aedb18e3-0d30-49ea-9943-e03055a778d2 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 29 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 71586e9d-27de-4ab0-ade9-be2d06018791 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 28 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 1cf7de1c-ed95-4e20-b996-b9cc13da3c0a from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 27 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection fcb31df5-fc10-4e0e-a2aa-de25a4247efb from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 26 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 586a036d-00e5-430c-8cbb-d62544336f90 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 25 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection c6a66452-b0bb-434d-9a40-2521d2e6d06a from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 24 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 646183b9-64b5-40e8-8b93-701a6a3806db from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 23 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 3728bf54-04f4-47f3-8ddd-bac485d20651 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 22 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection bc6c285e-eb51-463a-ab39-2f395eaadc68 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 21 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+ConnectionGC thread destroy a connection 3766fd33-9900-4031-a97a-352a2a2814c1 from pool 8f308d2c-f40f-4222-b986-8068482c7d0b
+freePool.size = 20 in pool 8f308d2c-f40f-4222-b986-8068482c7d0b

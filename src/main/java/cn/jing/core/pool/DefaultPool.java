@@ -93,7 +93,7 @@ public class DefaultPool extends Pool {
 
     public PooledConnection getConnection() throws NoFreeConnectionException, MaxConnectionException {
         PooledConnection connection = getConnection(1000 * 60);
-        connection.doBorrow();
+
         return connection;
     }
 
@@ -123,6 +123,7 @@ public class DefaultPool extends Pool {
             //判断当前空闲连接是否 < 最小连接数
             connectionGenerator.startGenerate();
 
+            connection.doBorrow();
             return connection;
         } catch (InterruptedException e) {
             throw new NoFreeConnectionException();

@@ -35,8 +35,8 @@ public class DefaultManager implements Manager {
     private LinkedHashMap<String, Pool> poolMap;
 
     private Map<String, JMXPoolMBean> poolMBeanMap;
-    private JMXServer jxmServer;
-    private boolean JXMEnable = false;
+    private JMXServer JMXServer;
+    private boolean JMXEnable = false;
 
     public DefaultManager() throws DocumentException {
         //获取配置文件
@@ -69,7 +69,7 @@ public class DefaultManager implements Manager {
                 factory = new DefaultPooledConnectionFactory(p);
 
                 if (p.containsKey("jmx") && Boolean.parseBoolean(p.get("jmx").toString())) {
-                    JXMEnable = true;
+                    JMXEnable = true;
                     defaultPool = new DefaultPool(p, factory);
                     poolMBeanMap.put(p.get("moduleName").toString(), new JMXPool(defaultPool));
                 } else {
@@ -83,7 +83,7 @@ public class DefaultManager implements Manager {
                 Pool pool = null;
 
                 if (p.containsKey("jmx") && Boolean.parseBoolean(p.get("jmx").toString())) {
-                    JXMEnable = true;
+                    JMXEnable = true;
                     pool = new DefaultPool(p, factory);
                     poolMBeanMap.put(p.get("moduleName").toString(), new JMXPool(pool));
                 } else {
@@ -93,11 +93,11 @@ public class DefaultManager implements Manager {
                 poolMap.put(p.get("moduleName").toString(), pool);
             }
         }
-        //如果存在一个pool开启了JXM,那么开启JXM服务
-        if (JXMEnable) {
-            jxmServer = new DefaultJMXServer();
+        //如果存在一个pool开启了JMX,那么开启JMX服务
+        if (JMXEnable) {
+            JMXServer = new DefaultJMXServer();
             try {
-                jxmServer.expose(poolMBeanMap);
+                JMXServer.expose(poolMBeanMap);
             } catch (MalformedObjectNameException e) {
                 e.printStackTrace();
             } catch (NotCompliantMBeanException e) {
