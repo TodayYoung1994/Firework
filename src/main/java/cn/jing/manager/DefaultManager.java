@@ -65,32 +65,21 @@ public class DefaultManager implements Manager {
         PooledConnectionFactory factory = null;
         boolean defaultInited = false;
         for (Properties p : propertiesList) {
-            if (!defaultInited) {
-                factory = new DefaultPooledConnectionFactory(p);
+            factory = new DefaultPooledConnectionFactory(p);
+            Pool pool = null;
 
-                if (p.containsKey("jmx") && Boolean.parseBoolean(p.get("jmx").toString())) {
-                    JMXEnable = true;
-                    defaultPool = new DefaultPool(p, factory);
-                    poolMBeanMap.put(p.get("moduleName").toString(), new JMXPool(defaultPool));
-                } else {
-                    defaultPool = new DefaultPool(p, factory);
-                }
-
-                defaultInited = true;
-                poolMap.put(p.get("moduleName").toString(), defaultPool);
+            if (p.containsKey("jmx") && Boolean.parseBoolean(p.get("jmx").toString())) {
+                JMXEnable = true;
+                pool = new DefaultPool(p, factory);
+                poolMBeanMap.put(p.get("moduleName").toString(), new JMXPool(pool));
             } else {
-                factory = new DefaultPooledConnectionFactory(p);
-                Pool pool = null;
+                pool = new DefaultPool(p, factory);
+            }
+            poolMap.put(p.get("moduleName").toString(), pool);
 
-                if (p.containsKey("jmx") && Boolean.parseBoolean(p.get("jmx").toString())) {
-                    JMXEnable = true;
-                    pool = new DefaultPool(p, factory);
-                    poolMBeanMap.put(p.get("moduleName").toString(), new JMXPool(pool));
-                } else {
-                    pool = new DefaultPool(p, factory);
-                }
-
-                poolMap.put(p.get("moduleName").toString(), pool);
+            if (!defaultInited) {
+                defaultPool = pool;
+                defaultInited = true;
             }
         }
         //如果存在一个pool开启了JMX,那么开启JMX服务

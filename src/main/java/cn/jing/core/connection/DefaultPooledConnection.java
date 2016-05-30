@@ -10,7 +10,7 @@ import java.util.concurrent.Executor;
 /**
  * Created by dubby on 16/5/3.
  */
-public class DefaultPooledConnection extends PooledConnection implements Connection {
+public class DefaultPooledConnection extends PooledConnection{
 
     public DefaultPooledConnection(String id, Connection connection, Pool pool) {
         super(id, connection, pool);

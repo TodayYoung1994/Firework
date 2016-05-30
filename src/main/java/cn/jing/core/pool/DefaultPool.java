@@ -22,8 +22,8 @@ public class DefaultPool extends Pool {
     private Logger logger = LoggerFactory.getLogger(DefaultPool.class);
 
     private String poolId = UUID.randomUUID().toString();
-    private ConnectionGC connectionGC;
-    private ConnectionGenerator connectionGenerator;
+    public ConnectionGC connectionGC;
+    public ConnectionGenerator connectionGenerator;
 
     public DefaultPool(Properties properties, PooledConnectionFactory factory) {
         if (properties == null || properties.isEmpty()) {
@@ -155,7 +155,7 @@ public class DefaultPool extends Pool {
 
 
     //回收连接的线程
-    class ConnectionGC extends Thread {
+    public class ConnectionGC extends Thread {
 
         private boolean isStop = true;
 
@@ -171,24 +171,18 @@ public class DefaultPool extends Pool {
         public void run() {
             while (true) {
                 if (!isStop) {
-                    if (freePool.size() <= maxIdleNum) {
+                    if (freePool.size() <= maxIdleNum && freePool.size() + busyPool.size() < maxNum) {
                         isStop = true;
                     } else {
                         for (PooledConnection c : freePool) {
-                            long currentTime = System.currentTimeMillis();
-                            if (currentTime - c.getBorrowTime() > maxIdleTime) {
+                            PooledConnection conn = freePool.poll();
 
-                                PooledConnection conn = freePool.poll();
+                            logger.debug("ConnectionGC thread destroy a connection " + conn.getId() + " from pool " + poolId);
+                            logger.debug("freePool.size = " + freePool.size() + " in pool " + poolId);
 
-
-                                logger.debug("ConnectionGC thread destroy a connection " + conn.getId() + " from pool " + poolId);
-                                logger.debug("freePool.size = " + freePool.size() + " in pool " + poolId);
-
-                                if (freePool.size() <= maxIdleNum) {
-                                    isStop = true;
-                                    break;
-                                }
-
+                            if (freePool.size() <= maxIdleNum && freePool.size() + busyPool.size() < maxNum) {
+                                isStop = true;
+                                break;
                             }
                         }
                     }
@@ -204,7 +198,7 @@ public class DefaultPool extends Pool {
     }
 
     //当连接不足时,创建连接的线程
-    class ConnectionGenerator extends Thread {
+    public class ConnectionGenerator extends Thread {
 
         private boolean isStop = true;
 
@@ -220,7 +214,8 @@ public class DefaultPool extends Pool {
         public void run() {
             while (true) {
                 if (!isStop) {
-                    if (freePool.size() >= minIdleNum) {
+                    if (freePool.size() >= minIdleNum
+                            || (freePool.size() + busyPool.size() >= maxNum)) {
                         isStop = true;
                     } else {
                         while (true) {
@@ -230,7 +225,8 @@ public class DefaultPool extends Pool {
                                 logger.debug("ConnectionGenerator thread create a connection " + newConnection.getId() + " add to pool " + poolId);
                                 logger.debug("freePool.size = " + freePool.size() + " in pool " + poolId);
 
-                                if (freePool.size() >= minIdleNum) {
+                                if (freePool.size() >= minIdleNum
+                                        || (freePool.size() + busyPool.size() >= maxNum)) {
                                     isStop = true;
                                     break;
                                 }

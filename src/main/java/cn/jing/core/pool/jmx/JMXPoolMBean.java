@@ -50,15 +50,6 @@ public interface JMXPoolMBean {
      *
      * @return
      */
-    long getMaxIdleTime();
-
-    void setMaxIdleTime(long maxIdleTime);
-
-    /**
-     * 连接池最大空闲时间
-     *
-     * @return
-     */
     int getMinIdleNum();
 
     void setMinIdleNum(int minIdleNum);

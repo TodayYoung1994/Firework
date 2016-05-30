@@ -21,10 +21,10 @@ public abstract class PooledConnection implements Connection {
     protected Pool pool;
     protected Connection connectionHolder;
 
-    public PooledConnection(String id, Connection connection, Pool pool) {
+    public PooledConnection(String id, Connection conn, Pool pool) {
         this.id = id;
         this.connection = new ThreadLocal<Connection>();
-        this.connectionHolder = connection;
+        this.connectionHolder = conn;
         this.pool = pool;
     }
 

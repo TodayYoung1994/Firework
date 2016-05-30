@@ -3,9 +3,9 @@
     <module>
         <moduleName>a</moduleName>
         <user>root</user>
-        <password>nington</password>
+        <password>123456</password>
         <driverName>com.mysql.jdbc.Driver</driverName>
-        <url>jdbc:mysql://127.0.0.1/test</url>
+        <url>jdbc:mysql://127.0.0.1/a</url>
 
         <coreNum>40</coreNum>
         <maxNum>50</maxNum>
@@ -17,9 +17,9 @@
     <module>
         <moduleName>b</moduleName>
         <user>root</user>
-        <password>nington</password>
+        <password>123456</password>
         <driverName>com.mysql.jdbc.Driver</driverName>
-        <url>jdbc:mysql://127.0.0.1/test</url>
+        <url>jdbc:mysql://127.0.0.1/b</url>
 
         <coreNum>10</coreNum>
         <maxNum>20</maxNum>

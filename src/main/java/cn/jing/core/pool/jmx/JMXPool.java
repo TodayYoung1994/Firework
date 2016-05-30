@@ -1,5 +1,6 @@
 package cn.jing.core.pool.jmx;
 
+import cn.jing.core.pool.DefaultPool;
 import cn.jing.core.pool.Pool;
 
 /**
@@ -10,6 +11,11 @@ public class JMXPool implements JMXPoolMBean {
     private Pool pool;
 
     public JMXPool() {
+    }
+
+    private void startWorkerThread(){
+        ((DefaultPool)pool).connectionGC.startGC();
+        ((DefaultPool)pool).connectionGenerator.startGenerate();
     }
 
     public JMXPool(Pool pool) {
@@ -29,6 +35,7 @@ public class JMXPool implements JMXPoolMBean {
     }
 
     public void setMax(int max) {
+        startWorkerThread();
         pool.setMaxNum(max);
     }
 
@@ -45,15 +52,8 @@ public class JMXPool implements JMXPoolMBean {
     }
 
     public void setMaxIdleNum(int maxIdleNum) {
+        startWorkerThread();
         pool.setMaxIdleNum(maxIdleNum);
-    }
-
-    public long getMaxIdleTime() {
-        return pool.getMaxIdleTime();
-    }
-
-    public void setMaxIdleTime(long maxIdleTime) {
-        pool.setMaxIdleTime(maxIdleTime);
     }
 
     public int getMinIdleNum() {
@@ -61,6 +61,7 @@ public class JMXPool implements JMXPoolMBean {
     }
 
     public void setMinIdleNum(int minIdleNum) {
+        startWorkerThread();
         pool.setMinIdleNum(minIdleNum);
     }
 }
